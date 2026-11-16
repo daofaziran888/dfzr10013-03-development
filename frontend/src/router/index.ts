@@ -17,6 +17,7 @@ const Datasource = () => import('@/views/datasource/index.vue')
 const Cache = () => import('@/views/cache/index.vue')
 const Template = () => import('@/views/template/index.vue')
 const Refresh = () => import('@/views/refresh/index.vue')
+const Funnel = () => import('@/views/funnel/index.vue')
 
 const router = createRouter({
   history: createWebHistory(),
@@ -38,6 +39,7 @@ const router = createRouter({
     { path: '/cache', name: 'cache', component: Cache },
     { path: '/template', name: 'template', component: Template },
     { path: '/refresh', name: 'refresh', component: Refresh },
+    { path: '/funnel', name: 'funnel', component: Funnel },
   ],
 })
 

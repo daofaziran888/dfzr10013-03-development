@@ -63,3 +63,16 @@ def export_entries() -> dict[str, Any]:
     """导出经营预测模型清单：返回当前过滤条件下的全量数据。"""
     items, total = service.list_entries(page=1, size=10000)
     return {"module": "forecast", "total": total, "items": items}
+
+
+@router.post("/funnel-dataset/consume", response_model=ActionResult)
+def consume_funnel_dataset(payload: EntryPayload) -> ActionResult:
+    """跨模块消费漏斗转化分析数据集。
+
+    同时保存入组周期、观测截止时间与有效样本量；观察期不足（右删失）的商机
+    不会被当成最终流失。
+    """
+    record, error = service.consume_funnel_dataset(payload.values)
+    if record is None:
+        return ActionResult(ok=False, message=error)
+    return ActionResult(ok=True, message="漏斗转化分析数据集已接入预测任务", entry=record)
